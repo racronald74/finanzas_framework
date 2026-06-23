@@ -1,18 +1,104 @@
 <!DOCTYPE html>
-<html lang="es">
 
-<head>
+<html
+        xmlns:th="http://www.thymeleaf.org">
 
-    <meta charset="UTF-8">
-    <title>Finanzas Framework</title>
+<head th:replace="fragments/head :: head"></head>
 
-</head>
+<body class="login-body">
 
-<body>
+<div class="login-card">
 
-    <h1>Login</h1>
+    <h2>
 
-    <p>Primer módulo desarrollado con Spring Boot.</p>
+        Finanzas Framework
+
+    </h2>
+
+    <p>
+
+        Inicio de sesión
+
+    </p>
+
+    <form
+            th:action="@{/login}"
+            method="post">
+
+        <div class="mb-3">
+
+            <label>
+
+                Correo electrónico
+
+            </label>
+
+            <input
+
+                    class="form-control"
+
+                    type="email"
+
+                    name="correo"
+
+                    required>
+
+        </div>
+
+        <div class="mb-4">
+
+            <label>
+
+                Contraseña
+
+            </label>
+
+            <input
+
+                    class="form-control"
+
+                    type="password"
+
+                    name="contrasena"
+
+                    required>
+
+        </div>
+
+        <button
+
+                class="btn btn-primary w-100"
+
+                type="submit">
+
+            Iniciar sesión
+
+        </button>
+
+        <div
+                class="alert alert-danger mt-3"
+                th:if="${mensaje}"
+                th:text="${mensaje}">
+        </div>
+
+        <div class="demo-user">
+    <h5>Usuario de prueba</h5>
+
+    <p>
+        Correo:
+        <strong>admin@finanzas.com</strong>
+    </p>
+
+    <p>
+        Contraseña:
+        <strong>123456</strong>
+    </p>
+
+</div>
+
+    </form>
+
+</div>
 
 </body>
 

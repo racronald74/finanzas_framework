@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="dashboard-container">
+
+    <h2>Bienvenido</h2>
+
+    <p>
+
+        Panel principal del sistema.
+
+    </p>
+
+    <div class="cards">
+        <div class="card">
+            <h3>$2500000</h3>
+            <p>Gastos del mes</p>
+        </div>
+
+        <div class="card">
+            <h3>$4200000</h3>
+            <p>Ingresos el mes</p>
+        </div>
+
+        <div class="card">
+            <h3>$1700000</h3>
+            <p>Saldo disponible</p>
+       </div>
+    </div>
+
+    <h3>Accesos rápidos</h3>
+
+    <div class="acciones">
+
+        <a class="boton"
+           href="/registrar-gasto">
+
+            Registrar gasto
+        </a>
+
+        <a class="boton"
+           href="/listar-gastos">
+
+            Consultar gastos
+        </a>
+
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

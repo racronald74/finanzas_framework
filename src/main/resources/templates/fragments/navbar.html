@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+<nav th:fragment="navbar" class="navbar">
+
+    <div class="nav-container">
+
+        <div class="nav-logo">
+
+            Finanzas Framework
+
+        </div>
+
+        <div class="nav-links">
+
+            <a th:href="@{/dashboard}">
+                Dashboard
+            </a>
+
+            <a href="#">
+                Gastos
+            </a>
+
+            <a href="#">
+                Ingresos
+            </a>
+
+            <a href="#">
+                Reportes
+            </a>
+
+            <a th:href="@{/login}">
+                Cerrar sesión
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+</body>
+
+</html>

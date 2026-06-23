@@ -1,0 +1,16 @@
+@import url("login.css");
+@import url("dashboard.css");
+@import url("navbar.css");
+@import url("forms.css");
+
+/* Estilos generales */
+
+body{
+
+    margin:0;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:#eef2f7;
+
+}
