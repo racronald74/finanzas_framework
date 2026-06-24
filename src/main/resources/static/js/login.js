@@ -1,3 +1,6 @@
+/*
+ * Mostrar u ocultar la contraseña.
+ */
 function togglePassword() {
 
     const password = document.getElementById("contrasena");
@@ -20,3 +23,23 @@ function togglePassword() {
     }
 
 }
+
+/*
+ * Mostrar indicador de carga al enviar el formulario.
+ */
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.querySelector("form");
+
+    const submitButton = form.querySelector("button[type='submit']");
+
+    form.addEventListener("submit", function () {
+
+        submitButton.disabled = true;
+
+        submitButton.innerHTML =
+            '<span class="spinner-border spinner-border-sm me-2" role="status"></span>Iniciando sesión...';
+
+    });
+
+});

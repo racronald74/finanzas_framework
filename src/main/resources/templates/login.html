@@ -38,6 +38,8 @@
                     type="email"
                     name="correo"
                     th:value="${correo}"
+                    placeholder="Ingrese su correo"
+                    autofocus
                     required>
 
         </div>
@@ -55,16 +57,19 @@
             class="form-control"
             type="password"
             name="contrasena"
+            placeholder="Ingrese su contraseña"
             required>
 
         <button
-            type="button"
-            class="toggle-password"
-            onclick="togglePassword()">
+    type="button"
+    class="toggle-password"
+    tabindex="-1"
+    aria-label="Mostrar u ocultar contraseña"
+    onclick="togglePassword()">
 
-            <i id="passwordIcon" class="bi bi-eye"></i>
+    <i id="passwordIcon" class="bi bi-eye"></i>
 
-        </button>
+</button>
 
     </div>
 
