@@ -61,6 +61,8 @@ model.addAttribute(
         "Correo o contraseña incorrectos"
 );
 
+model.addAttribute("correo", correo);
+
 return "login";
 
     }

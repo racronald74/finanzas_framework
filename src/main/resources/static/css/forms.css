@@ -7,3 +7,51 @@
     font-weight:bold;
 
 }
+
+.password-container{
+
+    position:relative;
+
+}
+
+.password-container input{
+
+    padding-right:45px;
+
+}
+
+.toggle-password{
+
+    position:absolute;
+
+    top:50%;
+
+    right:12px;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    color:#6c757d;
+
+    padding:0;
+
+}
+
+.toggle-password:hover{
+
+    color:#0d6efd;
+
+}
+
+.toggle-password:focus{
+
+    outline:none;
+
+    box-shadow:none;
+
+}
