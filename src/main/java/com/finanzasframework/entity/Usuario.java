@@ -1,6 +1,8 @@
 package com.finanzasframework.entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Entidad que representa la tabla usuario.
@@ -15,7 +17,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+//Atributos de la entidad Usuario
     /*
      * Nombre del usuario.
      */
@@ -33,7 +35,17 @@ public class Usuario {
      */
     @Column(nullable = false, length = 255)
     private String contrasena;
-
+    
+    /*
+ * Lista de gastos asociados al usuario.
+ */
+@OneToMany(
+        mappedBy = "usuario",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+)
+private List<Gasto> gastos = new ArrayList<>();
+//Metodos getter y setter para la relación con Gasto
     public Usuario() {
     }
 
@@ -68,5 +80,13 @@ public class Usuario {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
+
+    public List<Gasto> getGastos() {
+    return gastos;
+}
+
+public void setGastos(List<Gasto> gastos) {
+    this.gastos = gastos;
+}
 
 }

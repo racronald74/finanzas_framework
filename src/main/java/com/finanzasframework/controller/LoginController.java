@@ -1,10 +1,9 @@
 package com.finanzasframework.controller;
 
+import com.finanzasframework.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import com.finanzasframework.service.LoginService;
 
 /*
  * Controlador encargado del inicio de sesión.
@@ -14,29 +13,31 @@ public class LoginController {
 
     private final LoginService loginService;
 
-public LoginController(LoginService loginService) {
-    this.loginService = loginService;
-}
+    public LoginController(LoginService loginService) {
 
-/*
+        this.loginService = loginService;
+
+    }
+
+    /*
      * Página principal.
      */
     @GetMapping("/")
-public String inicio() {
+    public String inicio() {
 
-    return "redirect:/login";
+        return "redirect:/login";
 
-}
+    }
 
     /*
- * Mostrar formulario de inicio de sesión.
- */
-@GetMapping("/login")
-public String mostrarLogin() {
+     * Mostrar formulario de inicio de sesión.
+     */
+    @GetMapping("/login")
+    public String mostrarLogin() {
 
-    return "login";
+        return "auth/login";
 
-}
+    }
 
     /*
      * Procesar formulario.
@@ -51,20 +52,22 @@ public String mostrarLogin() {
 
         if (loginService.validarUsuario(correo, contrasena)) {
 
-    return "redirect:/dashboard";
+            return "redirect:/dashboard";
 
-}
-/*
- * Si las credenciales son incorrectas, se muestra un mensaje de error.
- */
-model.addAttribute(
-        "error",
-        "Correo o contraseña incorrectos"
-);
+        }
 
-model.addAttribute("correo", correo);
+        /*
+         * Si las credenciales son incorrectas,
+         * se muestra un mensaje de error.
+         */
+        model.addAttribute(
+                "error",
+                "Correo o contraseña incorrectos"
+        );
 
-return "login";
+        model.addAttribute("correo", correo);
+
+        return "auth/login";
 
     }
 
