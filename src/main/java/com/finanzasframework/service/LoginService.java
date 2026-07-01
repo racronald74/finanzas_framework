@@ -2,6 +2,11 @@ package com.finanzasframework.service;
 
 import org.springframework.stereotype.Service;
 
+import com.finanzasframework.entity.Usuario;
+import com.finanzasframework.repository.UsuarioRepository;
+
+import java.util.Optional;
+
 /*
  * Servicio encargado de validar
  * el inicio de sesión.
@@ -9,43 +14,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
 
-    /*
-     * Valida las credenciales del usuario.
-     */
-    /*public boolean autenticar(
-            String correo,
-            String contrasena) {
+    private final UsuarioRepository usuarioRepository;
 
-        return correo.equals("admin@finanzas.com")
-                && contrasena.equals("123456");
-
+    public LoginService(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
     }
 
-    public boolean validarUsuario(String correo, String contrasena) {
-        return autenticar(correo, contrasena);*/
-
-        /*
-     * Usuario de demostración.
-     */
     /*
- * NOTA:
- * Las credenciales están precargadas únicamente
- * para fines de demostración y evaluación del proyecto.
- * En una versión productiva serán consultadas
- * desde la base de datos.
+ * Valida las credenciales del usuario.
  */
-    private final String correoDemo = "admin@finanzas.com";
+public boolean validarUsuario(String correo,
+                              String contrasena) {
 
-    private final String contrasenaDemo = "123456";
+    Optional<Usuario> usuario =
+            usuarioRepository.findByCorreo(correo);
 
-    /*
-     * Validar credenciales.
-     */
-    public boolean validarUsuario(String correo,
-                                  String contrasena) {
+    if (usuario.isPresent()) {
 
-        return correo.equals(correoDemo)
-                && contrasena.equals(contrasenaDemo);
+        return usuario.get()
+                .getContrasena()
+                .equals(contrasena);
+
     }
+
+    return false;
+
+}
 
 }
