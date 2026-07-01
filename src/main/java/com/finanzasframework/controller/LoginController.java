@@ -1,9 +1,10 @@
 package com.finanzasframework.controller;
 
-import com.finanzasframework.service.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import com.finanzasframework.service.LoginService;
 
 /*
  * Controlador encargado del inicio de sesión.
