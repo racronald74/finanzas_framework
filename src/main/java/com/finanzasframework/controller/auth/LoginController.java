@@ -1,4 +1,4 @@
-package com.finanzasframework.controller;
+package com.finanzasframework.controller.auth;
 
 import com.finanzasframework.service.LoginService;
 import org.springframework.stereotype.Controller;

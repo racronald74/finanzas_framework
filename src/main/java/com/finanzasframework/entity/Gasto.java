@@ -56,6 +56,12 @@ private Usuario usuario;
         return id;
     }
 
+    public void setId(Long id) {
+
+    this.id = id;
+
+}
+
     public BigDecimal getMonto() {
         return monto;
     }
