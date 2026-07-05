@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es"
+    xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+
+        Modificar ingreso fijo mensual
+
+    </h2>
+
+    <form
+            th:action="@{/ingresos/fijo}"
+            th:object="${ingreso}"
+            method="post">
+
+        <input
+                type="hidden"
+                th:field="*{id}">
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                Ingreso fijo mensual
+
+            </label>
+
+            <input
+                    class="form-control"
+                    type="number"
+                    step="0.01"
+                    th:field="*{monto}">
+
+        </div>
+
+        <button
+                class="btn btn-primary"
+                type="submit">
+
+            Guardar
+
+        </button>
+
+        <a
+                class="btn btn-secondary"
+                th:href="@{/ingresos}">
+
+            Cancelar
+
+        </a>
+
+    </form>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+
+</html>

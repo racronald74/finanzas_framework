@@ -19,19 +19,61 @@
 
     <div class="cards">
         <div class="card">
-            <h3>$2500000</h3>
+            <h3>
+
+    <span
+        th:if="${totalGastos != null}"
+        th:text="|$${totalGastos}|">
+    </span>
+
+    <span
+        th:unless="${totalGastos != null}">
+
+        $0
+
+    </span>
+
+</h3>
             <p>Gastos del mes</p>
         </div>
 
-        <div class="card">
-            <h3>$4200000</h3>
+<div class="card">
+<h3>
+
+        <span
+            th:if="${totalIngresos != null}"
+            th:text="|$${totalIngresos}|">
+        </span>
+
+        <span
+        th:unless="${totalIngresos != null}">
+
+        $0
+
+        </span>
+
+</h3>
             <p>Ingresos el mes</p>
-        </div>
+</div>
 
         <div class="card">
-            <h3>$1700000</h3>
+            <h2 class="text-success">
+
+    <span
+        th:if="${saldoDisponible != null}"
+        th:text="|$${saldoDisponible}|">
+    </span>
+
+    <span
+        th:unless="${saldoDisponible != null}">
+
+        $0
+
+    </span>
+
+</h2>
             <p>Saldo disponible</p>
-       </div>
+    </div>
     </div>
 
     <h3>Accesos rápidos</h3>
@@ -39,7 +81,7 @@
     <div class="acciones">
 
     <a class="boton"
-       th:href="@{/gastos}">
+    th:href="@{/gastos}">
 
         Gestionar gastos
 

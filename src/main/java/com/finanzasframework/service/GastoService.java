@@ -3,6 +3,8 @@ package com.finanzasframework.service;
 import com.finanzasframework.entity.Gasto;
 import com.finanzasframework.repository.GastoRepository;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 /*
@@ -55,6 +57,21 @@ public Gasto buscarPorId(Long id) {
 public void eliminarPorId(Long id) {
 
     gastoRepository.deleteById(id);
+
+}
+
+/*
+ * Obtener el total de gastos.
+ */
+public BigDecimal obtenerTotalGastos() {
+
+    return gastoRepository.findAll()
+            .stream()
+            .map(Gasto::getMonto)
+            .reduce(
+                    BigDecimal.ZERO,
+                    BigDecimal::add
+            );
 
 }
 

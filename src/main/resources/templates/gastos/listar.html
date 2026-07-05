@@ -24,6 +24,44 @@
 
     </div>
 
+    <div class="row mb-4">
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h5 class="card-title">
+
+                    Total gastos del mes
+
+                </h5>
+
+                <h2 class="text-danger">
+
+                    <span
+                        th:if="${totalGastos != null}"
+                        th:text="|$${totalGastos}|">
+                    </span>
+
+                    <span
+                        th:unless="${totalGastos != null}">
+
+                        $0
+
+                    </span>
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
     <table class="table table-striped table-hover">
 
         <thead>
@@ -102,74 +140,13 @@
 
 <div th:replace="fragments/footer :: footer"></div>
 
-<div th:replace="fragments/footer :: scripts"></div>
-
-<script>
-
-function confirmarEliminacion(boton) {
-
-    const url = boton.dataset.url;
-
-    Swal.fire({
-
-        title: '¿Eliminar gasto?',
-
-        text: 'Esta acción no se puede deshacer.',
-
-        icon: 'warning',
-
-        showCancelButton: true,
-
-        confirmButtonColor: '#d33',
-
-        cancelButtonColor: '#6c757d',
-
-        confirmButtonText: 'Sí, eliminar',
-
-        cancelButtonText: 'Cancelar'
-
-    }).then((result) => {
-
-        if (result.isConfirmed) {
-
-            window.location.href = url;
-
-        }
-
-    });
-
-}
-
-</script>
+<div th:replace="fragments/scripts :: scripts"></div>
 
 <script th:inline="javascript">
 
 const mensaje = /*[[${mensajeExito}]]*/ null;
 
-if (mensaje) {
-
-    let titulo = "";
-
-    if (mensaje === "registrado") {
-        titulo = "Gasto registrado correctamente";
-    }
-
-    if (mensaje === "actualizado") {
-        titulo = "Gasto actualizado correctamente";
-    }
-
-    if (mensaje === "eliminado") {
-        titulo = "Gasto eliminado correctamente";
-    }
-
-    Swal.fire({
-        icon: "success",
-        title: titulo,
-        timer: 1800,
-        showConfirmButton: false
-    });
-
-}
+mostrarMensajeExito(mensaje);
 
 </script>
 

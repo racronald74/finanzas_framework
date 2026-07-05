@@ -1,6 +1,10 @@
 package com.finanzasframework.controller.gasto;
 
 import com.finanzasframework.service.GastoService;
+import com.finanzasframework.service.IndicadorFinancieroService;
+
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
+import com.finanzasframework.enums.OrigenGasto;
 
 /*
  * Controlador encargado de la gestión de gastos.
@@ -20,29 +27,35 @@ public class GastoController {
 
     private final GastoService gastoService;
     private final UsuarioRepository usuarioRepository;
+    private final IndicadorFinancieroService indicadorFinancieroService;
 //Constructor para inyectar las dependencias necesarias en el controlador.
     public GastoController(
         GastoService gastoService,
-        UsuarioRepository usuarioRepository) {
+        UsuarioRepository usuarioRepository,
+        IndicadorFinancieroService indicadorFinancieroService) {
 
     this.gastoService = gastoService;
     this.usuarioRepository = usuarioRepository;
-
+    this.indicadorFinancieroService = indicadorFinancieroService;
 }
     /*
      * Mostrar listado de gastos.
      */
     @GetMapping("/gastos")
-    public String listarGastos(Model model) {
+public String listarGastos(Model model) {
 
-        model.addAttribute(
-                "gastos",
-                gastoService.listarTodos()
-        );
+    model.addAttribute(
+            "gastos",
+            gastoService.listarTodos()
+    );
 
-        return "gastos/listar";
+    model.addAttribute(
+            "totalGastos",
+            indicadorFinancieroService.obtenerTotalGastos()
+    );
 
-    }
+    return "gastos/listar";
+}
 
     /*
  * Mostrar formulario de registro de gastos.
@@ -50,12 +63,18 @@ public class GastoController {
 @GetMapping("/gastos/nuevo")
 public String nuevoGasto(Model model) {
 
-    model.addAttribute(
-            "gasto",
-            new Gasto()
-    );
+Gasto gasto = new Gasto();
 
-    return "gastos/formulario";
+gasto.setFecha(LocalDate.now());
+
+model.addAttribute("gasto", gasto);
+
+model.addAttribute(
+        "origenes",
+        OrigenGasto.values()
+);
+
+return "gastos/formulario";
 
 }
 
@@ -64,8 +83,20 @@ public String nuevoGasto(Model model) {
  */
 @PostMapping("/gastos")
 public String guardarGasto(
-        @ModelAttribute Gasto gasto,
+        @Valid @ModelAttribute("gasto") Gasto gasto,
+        BindingResult bindingResult,
+        Model model,
         RedirectAttributes redirectAttributes) {
+
+    if (bindingResult.hasErrors()) {
+
+    model.addAttribute(
+            "origenes",
+            OrigenGasto.values()
+    );
+
+    return "gastos/formulario";
+}
 
     boolean esEdicion = gasto.getId() != null;
 
@@ -92,14 +123,14 @@ public String guardarGasto(
 
         redirectAttributes.addFlashAttribute(
                 "mensajeExito",
-                "actualizado"
+                "Gasto actualizado correctamente"
         );
 
     } else {
 
         redirectAttributes.addFlashAttribute(
-                "mensajeExito",
-                "registrado"
+        "mensajeExito",
+        "Gasto registrado correctamente"
         );
 
     }
@@ -120,7 +151,7 @@ public String eliminarGasto(
 
     redirectAttributes.addFlashAttribute(
             "mensajeExito",
-            "eliminado"
+            "Gasto eliminado correctamente"
     );
 
     return "redirect:/gastos";
@@ -139,6 +170,11 @@ public String editarGasto(
             "gasto",
             gastoService.buscarPorId(id)
     );
+
+    model.addAttribute(
+        "origenes",
+        OrigenGasto.values()
+);
 
     return "gastos/formulario";
 

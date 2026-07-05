@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es"
+    xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+
+        Gestión de ingresos
+
+    </h2>
+
+    <div class="row mb-4">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+
+                        Ingreso fijo mensual
+
+                    </h5>
+
+<h2 class="text-success"
+    th:if="${ingresoFijo != null}"
+    th:text="|$${ingresoFijo.monto}|">
+</h2>
+
+<h2 class="text-success"
+    th:unless="${ingresoFijo != null}">
+    $0
+</h2>
+
+<a
+class="btn btn-warning"
+th:href="@{/ingresos/fijo}">
+
+Modificar
+
+</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h5 class="card-title">
+
+                        Total ingresos
+
+                    </h5>
+
+                    <h2 class="text-primary">
+
+                    <span
+                    th:if="${totalIngresos != null}"
+                    th:text="|$${totalIngresos}|">
+                    </span>
+
+    <span
+        th:unless="${totalIngresos != null}">
+
+        $0
+
+    </span>
+
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+        <h4>
+
+            Ingresos adicionales
+
+        </h4>
+
+        <a
+        class="btn btn-primary"
+        th:href="@{/ingresos/nuevo}">
+
+        Agregar ingreso
+
+        </a>
+
+    </div>
+
+    <table class="table table-striped table-hover">
+
+        <thead>
+
+        <tr>
+
+            <th>Fecha</th>
+
+            <th>Monto</th>
+
+            <th>Descripción</th>
+
+            <th>Acciones</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+<tr th:if="${#lists.isEmpty(ingresos)}">
+
+    <td colspan="4" class="text-center">
+
+        No existen ingresos adicionales registrados.
+
+    </td>
+
+</tr>
+
+<tr th:each="ingreso : ${ingresos}">
+
+    <td th:text="${ingreso.fecha}"></td>
+
+    <td th:text="${ingreso.monto}"></td>
+
+    <td th:text="${ingreso.descripcion}"></td>
+
+    <td>
+
+        <a
+        class="btn btn-warning btn-sm"
+        th:href="@{/ingresos/editar/{id}(id=${ingreso.id})}">
+
+    Editar
+
+        </a>
+
+        <a
+        class="btn btn-danger btn-sm"
+        href="#"
+        th:data-url="@{/ingresos/eliminar/{id}(id=${ingreso.id})}"
+onclick="confirmarEliminacion(this); return false;">
+
+    Eliminar
+
+</a>
+
+    </td>
+
+</tr>
+
+</tbody>
+
+    </table>
+
+</div>
+
+<div th:replace="fragments/scripts :: scripts"></div>
+
+<script th:inline="javascript">
+
+const mensaje = /*[[${mensajeExito}]]*/ null;
+
+mostrarMensajeExito(mensaje);
+
+</script>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
