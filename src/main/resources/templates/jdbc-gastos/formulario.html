@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head :: head}"></head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="container mt-4">
+
+    <h2 class="mb-4" th:text="${gasto.id == null} ? 'Registrar gasto JDBC' : 'Editar gasto JDBC'"></h2>
+
+    <div class="alert alert-info" role="alert">
+        El registro se almacenará únicamente en <code>gasto_jdbc_demo</code> mediante JDBC explícito.
+    </div>
+
+    <form th:action="@{/demostracion-jdbc/gastos}" th:object="${gasto}" method="post">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="mb-3">
+            <label class="form-label" for="usuarioId">Usuario</label>
+            <select id="usuarioId" class="form-select"
+                    th:classappend="${#fields.hasErrors('usuarioId')} ? ' is-invalid' : ''"
+                    th:field="*{usuarioId}">
+                <option value="">Seleccione un usuario</option>
+                <option th:each="usuario : ${usuarios}"
+                        th:value="${usuario.id}"
+                        th:text="|${usuario.nombre} (${usuario.correo})|"></option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('usuarioId')}" th:errors="*{usuarioId}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="monto">Monto</label>
+            <input id="monto" class="form-control"
+                   th:classappend="${#fields.hasErrors('monto')} ? ' is-invalid' : ''"
+                   type="number" step="0.01" min="0.01" th:field="*{monto}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('monto')}" th:errors="*{monto}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="fecha">Fecha</label>
+            <input id="fecha" class="form-control"
+                   th:classappend="${#fields.hasErrors('fecha')} ? ' is-invalid' : ''"
+                   type="date" th:field="*{fecha}">
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('fecha')}" th:errors="*{fecha}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="origen">Origen</label>
+            <select id="origen" class="form-select"
+                    th:classappend="${#fields.hasErrors('origen')} ? ' is-invalid' : ''"
+                    th:field="*{origen}">
+                <option value="">Seleccione un origen</option>
+                <option th:each="origen : ${origenes}"
+                        th:value="${origen}"
+                        th:text="${origen.descripcion}"></option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('origen')}" th:errors="*{origen}"></div>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label" for="descripcion">Descripción</label>
+            <textarea id="descripcion" class="form-control"
+                      th:classappend="${#fields.hasErrors('descripcion')} ? ' is-invalid' : ''"
+                      rows="4" th:field="*{descripcion}"></textarea>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></div>
+        </div>
+
+        <button class="btn btn-primary" type="submit"
+                th:text="${gasto.id == null} ? 'Guardar' : 'Actualizar'"></button>
+        <a class="btn btn-secondary" th:href="@{/demostracion-jdbc/gastos}">Cancelar</a>
+
+    </form>
+
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>
